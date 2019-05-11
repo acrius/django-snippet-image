@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-snippet-image"
-version = "0.1.0"
+version = "0.1.1"
 description = "Django field for create snippet image for sharing in social networks."
 license = "MIT"
 authors = ["acrius <acrius@mail.ru>"]
@@ -14,7 +14,7 @@ keywords = ['django', 'sharing', 'images', 'social', 'networks', 'snippets']
 
 [tool.poetry.dependencies]
 python = "^3.5"
-django = "^1.11"
+django = "^1.11 || ^2.0"
 snippet-image = "^0.1.2"
 
 [build-system]
