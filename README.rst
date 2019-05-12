@@ -16,59 +16,10 @@ Installation
 pip3 install django-snippet-image
 `
 
-User guide
+Example
 -------------------------
 
-Import package field:
-
-.. code-block:: python
-
-    from django_snippet_image import SnippetImageField
-
-
-Use it in model:
-
-.. code-block:: python
-
-    class ExampleModel(Model):
-        text = CharField(
-            max_length=200,
-            verbose_name='Text for snippet image',
-        )
-        background = ImageField(
-            verbose_name='Background for snippet image',
-            blank=True,
-            null=True,
-        )
-        snippet_image_field = SnippetImageField(
-            verbose_name='Example snippet image field',
-            null=True,
-        )
-
-Set static params:
-
-.. code-block:: python
-
-    snippet_image_field = SnippetImageField(
-            overlay='/user/python/app/assets/overlay.png',
-            background_color=(0, 75, 125),
-            font='/user/python/app/assets/OpenSans-Bold.ttf',
-            verbose_name='Example snippet image field',
-            null=True,
-        )
-
-Set dynamic params. They are set using model methods:
-
-.. code-block:: python
-
-    def get_snippet_image_text(self, snippet_type):
-        return self.text if snippet_type == 'default' and self.text else ''
-
-    def get_snippet_image_background(self, snippet_type):
-        if snippet_type == 'default' and self.background:
-            return self.background.path
-
-Full example:
+Use SnippetImageField:
 
 .. code-block:: python
 
@@ -128,6 +79,7 @@ Full example:
 And use in template:
 
 .. code-block:: html
+
     <meta property="og:image" content="{{ instance.snippet_image_field.url }}" />
 
 Read more on home page_.
