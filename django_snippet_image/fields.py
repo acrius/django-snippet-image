@@ -15,6 +15,10 @@ class BaseSnippetImageFieldMixin:
         method = getattr(instance, self.should_be_created_method, None)
         return method() if method else True
 
+    @staticmethod
+    def get_file_name():
+        return '{}.jpeg'.format(str(uuid4()))
+
     def collect_data(self, instance):
         data = {
             attribute.name: self.get_attribute_value(instance, attribute) for attribute in Attributes
@@ -130,7 +134,7 @@ class SnippetImageField(BaseSnippetImageFieldMixin, ImageField):
         file = getattr(instance, self.attname)
 
         if (not file or not file.file) and self.should_be_created(instance):
-            file_name = '{}.jpeg'.format(str(uuid4()))
+            file_name = self.get_file_name()
             data = self.collect_data(instance)
             image = self.create_snippet_image(data)
             file.save(file_name, image, save=False)

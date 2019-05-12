@@ -8,6 +8,7 @@ from django.test import (
     override_settings,
 )
 from django.conf import settings
+from django_snippet_image import __version__
 
 from .models import (
     ExampleModel,
@@ -25,6 +26,9 @@ PURPOSE_IMAGE_WITHOUT_BACKGROUND = join(ASSETS_PATH, 'snippet-image-without-back
 
 class SnippetImageTestCase(TestCase):
     text = 'What time is it?'
+
+    def test_version(self):
+        self.assertEqual(__version__, '0.1.2')
 
     def test_should_be_created(self):
         instance = ExampleModel(
