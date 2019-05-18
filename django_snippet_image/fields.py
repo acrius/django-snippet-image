@@ -11,6 +11,29 @@ class BaseSnippetImageFieldMixin:
     kwargs = {}
     should_be_created_method = 'snippet_image_should_be_created'
 
+    def extract_specific_kwargs(self, kwargs):
+        return self.extract_kwargs(kwargs, Attributes)
+
+    @staticmethod
+    def extract_kwargs(kwargs, attributes):
+        """
+        Extract filled attributes from kwargs.
+
+        :param kwargs: The dictionary from which attributes will be extracted.
+        :type kwargs: dict
+        :param attributes: The enumerate of attributes that will be retrieved from the dictionary.
+        :type attributes: Enum
+
+        :return: extracted kwargs.
+        :rtype: dict
+        """
+        extracted_kwargs = {}
+        for attribute in attributes:
+            if kwargs.get(attribute.name):
+                extracted_kwargs[attribute.name] = kwargs.pop(attribute.name)
+
+        return extracted_kwargs
+
     def should_be_created(self, instance):
         method = getattr(instance, self.should_be_created_method, None)
         return method() if method else True
@@ -126,7 +149,7 @@ class SnippetImageField(BaseSnippetImageFieldMixin, ImageField):
                  :param storage:
         """
         self.snippet_type = snippet_type
-        self.kwargs = kwargs
+        self.kwargs = self.extract_specific_kwargs(kwargs)
         kwargs['blank'] = True
         super().__init__(**kwargs)
 

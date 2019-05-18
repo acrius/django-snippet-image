@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-snippet-image"
-version = "0.1.2"
+version = "0.1.3"
 description = "Django field for create snippet image for sharing in social networks."
 license = "MIT"
 authors = ["acrius <acrius@mail.ru>"]
